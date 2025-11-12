@@ -1,23 +1,18 @@
 <aside
   class="w-full lg:w-72 lg:h-screen lg:flex-shrink-0 bg-surface-light dark:bg-surface-dark lg:p-6 lg:flex lg:flex-col lg:border-r border-border-light dark:border-border-dark lg:shadow-soft dark:shadow-soft-dark">
-  <!-- Mobile header / logo -->
   <div class="lg:hidden flex justify-between items-center p-4 border-b border-border-light dark:border-border-dark">
     <div class="flex gap-3 items-center">
       <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
         data-alt="The Golden Spoon restaurant logo"
         style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDsCLWHk3EjyYIbSWidwe9julLFKzn3in2lA--gfTSuucBGGFbOzp67j9UFI0OQIptQZc9pHME5VM1HHD65l72ghtx2qai_4Qt0gAG8pT6RYxOnFFfiS7Ou6R_ct_at3dqT5vIRaFo5CoPMLY6i9v7cmzGWyQELLnfgqx0wFbANUAU5HjSq-dL8Z4T0ujfozNeSOGprl5yhs6_PZ92_Sp8AAqK3BrKX0ArLkeVSRTD_xfEPBIdjQlEy631PJS0AVqcBcWsFealkeSMQ");'>
       </div>
-      <div>
-        <h1 class="text-text-light-primary dark:text-text-dark-primary text-base font-bold leading-tight">The Golden
-          Spoon</h1>
-      </div>
+      <h1 class="text-text-light-primary dark:text-text-dark-primary text-base font-bold leading-tight">The Golden Spoon
+      </h1>
     </div>
-    <button class="text-text-light-primary dark:text-text-dark-primary">
-      <span class="material-symbols-outlined">menu</span>
-    </button>
+    <button class="text-text-light-primary dark:text-text-dark-primary"><span
+        class="material-symbols-outlined">menu</span></button>
   </div>
 
-  <!-- Desktop sidebar content -->
   <div class="hidden lg:block lg:grow lg:flex lg:flex-col">
     <div class="flex gap-3 items-center mb-8">
       <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12"
@@ -32,76 +27,27 @@
     </div>
 
     <div class="flex flex-col gap-2">
-      <a routerLink="/starters" routerLinkActive="bg-primary/10 active-link" [routerLinkActiveOptions]="{ exact: true }"
-        class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-light-secondary dark:text-text-dark-secondary hover:bg-primary/10 hover:text-text-light-primary dark:hover:text-text-dark-primary transition-colors">
-        <span class="material-symbols-outlined">auto_awesome</span>
-        <p class="text-sm font-medium">Starters</p>
-      </a>
-
-      <a routerLink="/salads" routerLinkActive="bg-primary/10 active-link"
-        class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-light-secondary dark:text-text-dark-secondary hover:bg-primary/10 hover:text-text-light-primary dark:hover:text-text-dark-primary transition-colors">
-        <span class="material-symbols-outlined">local_florist</span>
-        <p class="text-sm font-medium">Salads</p>
-      </a>
-
-      <a routerLink="/main" routerLinkActive="bg-primary/10 active-link"
-        class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-light-secondary dark:text-text-dark-secondary hover:bg-primary/10 hover:text-text-light-primary dark:hover:text-text-dark-primary transition-colors">
-        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">restaurant_menu</span>
-        <p class="text-sm font-bold">Main Dishes</p>
-      </a>
-
-      <a routerLink="/grill" routerLinkActive="bg-primary/10 active-link"
-        class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-light-secondary dark:text-text-dark-secondary hover:bg-primary/10 hover:text-text-light-primary dark:hover:text-text-dark-primary transition-colors">
-        <span class="material-symbols-outlined">outdoor_grill</span>
-        <p class="text-sm font-medium">From the Grill</p>
-      </a>
-
-      <a routerLink="/desserts" routerLinkActive="bg-primary/10 active-link"
-        class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-light-secondary dark:text-text-dark-secondary hover:bg-primary/10 hover:text-text-light-primary dark:hover:text-text-dark-primary transition-colors">
-        <span class="material-symbols-outlined">icecream</span>
-        <p class="text-sm font-medium">Desserts</p>
-      </a>
-
-      <a routerLink="/drinks" routerLinkActive="bg-primary/10 active-link"
-        class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-light-secondary dark:text-text-dark-secondary hover:bg-primary/10 hover:text-text-light-primary dark:hover:text-text-dark-primary transition-colors">
-        <span class="material-symbols-outlined">local_bar</span>
-        <p class="text-sm font-medium">Drinks</p>
-      </a>
-
-      <a routerLink="/kids" routerLinkActive="bg-primary/10 active-link"
-        class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-light-secondary dark:text-text-dark-secondary hover:bg-primary/10 hover:text-text-light-primary dark:hover:text-text-dark-primary transition-colors">
-        <span class="material-symbols-outlined">child_care</span>
-        <p class="text-sm font-medium">Kids Menu</p>
-      </a>
+      <div *ngFor="let category of categories" (click)="selectCategory(category.id)"
+        [ngClass]="{'bg-primary/10 text-primary text-text-light-primary dark:text-text-dark-primary': selectedCategoryId === category.id}"
+        class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-light-secondary dark:text-text-dark-secondary hover:bg-primary/10 hover:text-text-light-primary dark:hover:text-text-dark-primary transition-colors cursor-pointer">
+        <span class="material-symbols-outlined">{{ getCategoryIcon(category.id) }}</span>
+        <p class="text-sm font-medium">{{ category.name }}</p>
+      </div>
     </div>
   </div>
 
-  <!-- Order summary button pinned to bottom -->
   <button routerLink="/order-summary" class="hidden lg:flex lg:mt-auto order-summary-btn">
     <span class="material-symbols-outlined mr-2">shopping_basket</span>
     <span class="truncate">Order Summary ({{ menuService.cartCount$ | async }})</span>
   </button>
 
-  <!-- Mobile category scroller -->
   <div class="lg:hidden p-4">
     <div class="flex overflow-x-auto space-x-2 pb-2 -mx-4 px-4">
-      <a routerLink="/starters" routerLinkActive="bg-primary/10 active-link"
-        class="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-text-light-secondary dark:text-text-dark-secondary text-sm font-medium">Starters</a>
-      <a routerLink="/salads" routerLinkActive="bg-primary/10 active-link"
-        class="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-text-light-secondary dark:text-text-dark-secondary text-sm font-medium">Salads</a>
-      <a routerLink="/main" routerLinkActive="bg-primary/10 active-link"
-        class="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-text-light-secondary dark:text-text-dark-secondary text-sm font-medium">Main
-        Dishes</a>
-      <a routerLink="/grill" routerLinkActive="bg-primary/10 active-link"
-        class="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-text-light-secondary dark:text-text-dark-secondary text-sm font-medium">From
-        the Grill</a>
-      <a routerLink="/desserts" routerLinkActive="bg-primary/10 active-link"
-        class="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-text-light-secondary dark:text-text-dark-secondary text-sm font-medium">Desserts</a>
-      <a routerLink="/drinks" routerLinkActive="bg-primary/10 active-link"
-        class="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-text-light-secondary dark:text-text-dark-secondary text-sm font-medium">Drinks</a>
-      <a routerLink="/kids" routerLinkActive="bg-primary/10 active-link"
-        class="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-text-light-secondary dark:text-text-dark-secondary text-sm font-medium">Kids
-        Menu</a>
+      <div *ngFor="let category of categories" (click)="selectCategory(category.id)"
+        [ngClass]="{'bg-primary/10 text-primary': selectedCategoryId === category.id}"
+        class="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-text-light-secondary dark:text-text-dark-secondary text-sm font-medium transition-colors duration-200 hover:bg-secondary/5 cursor-pointer">
+        {{ category.name }}
+      </div>
     </div>
   </div>
 </aside>

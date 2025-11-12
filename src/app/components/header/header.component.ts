@@ -11,5 +11,4 @@ import { FormsModule } from '@angular/forms';
 })
 export class HeaderComponent {
     search = '';
-    table = '12B';
 }

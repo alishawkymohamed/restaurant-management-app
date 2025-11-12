@@ -109,6 +109,6 @@ export class PaymentComponent implements OnInit {
     }
 
     backToMenu(): void {
-        this.router.navigate(['/main']);
+        this.router.navigate(['/menu']);
     }
 }

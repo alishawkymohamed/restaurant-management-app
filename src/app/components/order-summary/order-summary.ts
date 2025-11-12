@@ -51,7 +51,7 @@ export class OrderSummaryComponent implements OnInit {
     }
 
     backToMenu(): void {
-        this.router.navigate(['/main']);
+        this.router.navigate(['/menu']);
     }
 
     proceedToCheckout(): void {

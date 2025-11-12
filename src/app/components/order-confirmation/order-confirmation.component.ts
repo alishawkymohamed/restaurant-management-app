@@ -67,7 +67,7 @@ export class OrderConfirmationComponent implements OnInit {
 
     continueBrowsing(): void {
         this.menuService.clearCart();
-        this.router.navigate(['/main']);
+        this.router.navigate(['/menu']);
     }
 
     async contactStaff(): Promise<void> {
