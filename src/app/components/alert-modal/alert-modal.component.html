@@ -1,0 +1,37 @@
+<div *ngIf="alert" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+    <div
+        class="bg-card-light dark:bg-card-dark rounded-xl shadow-2xl max-w-sm w-full animate-in fade-in zoom-in-95 duration-200">
+        <!-- Icon and Title -->
+        <div [ngClass]="getBackgroundColor()"
+            class="p-6 text-center border-b border-border-light dark:border-border-dark rounded-t-xl">
+            <div class="flex justify-center mb-3">
+                <span [ngClass]="getIconColor()" class="material-symbols-outlined text-5xl">{{ getIcon() }}</span>
+            </div>
+            <h2 class="text-xl font-bold text-text-light dark:text-text-dark">{{ alert.title }}</h2>
+        </div>
+
+        <!-- Message -->
+        <div class="p-6">
+            <p class="text-text-light dark:text-text-dark text-center">{{ alert.message }}</p>
+        </div>
+
+        <!-- Buttons -->
+        <div [ngClass]="alert.showConfirm ? 'grid grid-cols-2 gap-3' : 'flex'"
+            class="p-6 border-t border-border-light dark:border-border-dark rounded-b-xl bg-background-light dark:bg-background-dark">
+            <button *ngIf="!alert.showConfirm" (click)="onConfirm()"
+                class="w-full bg-primary text-white font-bold py-2.5 px-4 rounded-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-card-dark transition-colors">
+                OK
+            </button>
+
+            <button *ngIf="alert.showConfirm" (click)="onCancel()"
+                class="w-full bg-border-light dark:bg-border-dark text-text-light dark:text-text-dark font-bold py-2.5 px-4 rounded-lg hover:bg-border-light/80 dark:hover:bg-border-dark/80 focus:outline-none focus:ring-2 focus:ring-border-light dark:focus:ring-border-dark focus:ring-offset-2 dark:focus:ring-offset-card-dark transition-colors">
+                {{ alert.cancelText || 'Cancel' }}
+            </button>
+
+            <button *ngIf="alert.showConfirm" (click)="onConfirm()"
+                class="w-full bg-primary text-white font-bold py-2.5 px-4 rounded-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-card-dark transition-colors">
+                {{ alert.confirmText || 'Confirm' }}
+            </button>
+        </div>
+    </div>
+</div>

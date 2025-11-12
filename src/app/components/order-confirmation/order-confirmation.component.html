@@ -1,0 +1,104 @@
+<div
+    class="relative flex min-h-screen w-full flex-col items-center justify-center p-4 sm:p-6 bg-background-light dark:bg-background-dark">
+    <div class="w-full max-w-lg">
+        <div class="bg-card-light dark:bg-card-dark rounded-xl shadow-lg flex flex-col">
+            <!-- Success Header -->
+            <div
+                class="flex flex-col items-center p-6 sm:p-8 text-center border-b border-border-light dark:border-border-dark">
+                <div
+                    class="w-16 h-16 rounded-full bg-success/20 dark:bg-success/30 flex items-center justify-center mb-4">
+                    <span class="material-symbols-outlined text-success text-4xl">check</span>
+                </div>
+                <h1
+                    class="text-text-primary-light dark:text-text-primary-dark tracking-tight text-2xl sm:text-3xl font-bold leading-tight">
+                    Order Confirmed!</h1>
+                <p
+                    class="text-text-secondary-light dark:text-text-secondary-dark text-base font-normal leading-normal pt-2">
+                    Your order has been sent to the kitchen.</p>
+            </div>
+
+            <!-- Order and Table Info -->
+            <div class="p-4 sm:p-6 grid grid-cols-2 gap-4 border-b border-border-light dark:border-border-dark">
+                <div class="flex flex-col gap-1 rounded-lg bg-background-light dark:bg-background-dark p-4 text-center">
+                    <p
+                        class="text-text-secondary-light dark:text-text-secondary-dark text-xs sm:text-sm font-medium leading-normal">
+                        Order Number</p>
+                    <p
+                        class="text-text-primary-light dark:text-text-primary-dark text-base sm:text-lg font-bold leading-normal">
+                        {{ orderNumber }}</p>
+                </div>
+                <div class="flex flex-col gap-1 rounded-lg bg-background-light dark:bg-background-dark p-4 text-center">
+                    <p
+                        class="text-text-secondary-light dark:text-text-secondary-dark text-xs sm:text-sm font-medium leading-normal">
+                        Table Number</p>
+                    <p
+                        class="text-text-primary-light dark:text-text-primary-dark text-base sm:text-lg font-bold leading-normal">
+                        {{ tableNumber }}</p>
+                </div>
+            </div>
+
+            <!-- Order Summary Collapsible -->
+            <div class="flex flex-col p-4 sm:p-6">
+                <details class="flex flex-col group" [open]="isDetailsOpen">
+                    <summary (click)="toggleDetails()"
+                        class="flex cursor-pointer items-center justify-between gap-6 py-2 list-none">
+                        <p
+                            class="text-text-primary-light dark:text-text-primary-dark text-base font-medium leading-normal">
+                            Order Summary</p>
+                        <span
+                            class="material-symbols-outlined text-text-secondary-light dark:text-text-secondary-dark group-open:rotate-180 transition-transform">expand_more</span>
+                    </summary>
+                    <div class="flex flex-col gap-2 pt-2 text-sm" *ngIf="isDetailsOpen">
+                        <div *ngFor="let item of cartItems" class="flex justify-between">
+                            <p class="text-text-secondary-light dark:text-text-secondary-dark">{{ item.quantity || 1 }}x
+                                {{ item.title }}</p>
+                            <p class="text-text-primary-light dark:text-text-primary-dark">${{ (item.price *
+                                (item.quantity || 1)).toFixed(2) }}</p>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Totals -->
+                <div class="mt-4 pt-4 border-t border-border-light dark:border-border-dark">
+                    <div class="flex justify-between gap-x-6 py-1.5">
+                        <p
+                            class="text-text-secondary-light dark:text-text-secondary-dark text-sm font-normal leading-normal">
+                            Subtotal</p>
+                        <p
+                            class="text-text-primary-light dark:text-text-primary-dark text-sm font-normal leading-normal text-right">
+                            ${{ subtotal.toFixed(2) }}</p>
+                    </div>
+                    <div class="flex justify-between gap-x-6 py-1.5">
+                        <p
+                            class="text-text-secondary-light dark:text-text-secondary-dark text-sm font-normal leading-normal">
+                            Tax (10%)</p>
+                        <p
+                            class="text-text-primary-light dark:text-text-primary-dark text-sm font-normal leading-normal text-right">
+                            ${{ tax.toFixed(2) }}</p>
+                    </div>
+                    <div class="flex justify-between gap-x-6 py-1.5">
+                        <p
+                            class="text-text-secondary-light dark:text-text-secondary-dark text-sm font-medium leading-normal">
+                            Total Paid</p>
+                        <p
+                            class="text-text-primary-light dark:text-text-primary-dark text-sm font-bold leading-normal text-right">
+                            ${{ total.toFixed(2) }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div
+                class="flex flex-col items-center gap-4 p-4 sm:p-6 border-t border-border-light dark:border-border-dark">
+                <button (click)="continueBrowsing()"
+                    class="w-full bg-primary text-white font-bold py-3 px-6 rounded-lg hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-card-dark">
+                    Continue Browsing Menu
+                </button>
+                <a (click)="contactStaff()"
+                    class="text-sm text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary transition-colors cursor-pointer">
+                    Having an issue? Contact staff
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

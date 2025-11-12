@@ -1,0 +1,168 @@
+<div class="w-full">
+    <!-- Header -->
+    <header
+        class="flex items-center justify-between whitespace-nowrap border-b border-solid border-border-light dark:border-border-dark px-4 sm:px-6 md:px-10 lg:px-20 py-4">
+        <div class="flex items-center gap-3 sm:gap-4">
+            <div class="text-primary size-6">
+                <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z" fill="currentColor"></path>
+                </svg>
+            </div>
+            <h2 class="text-lg sm:text-xl font-bold leading-tight tracking-tight">The Golden Spoon</h2>
+        </div>
+        <div class="flex flex-1 justify-end">
+            <button (click)="backToMenu()"
+                class="text-sm font-medium leading-normal hover:text-primary transition-colors cursor-pointer bg-none border-none p-0">
+                Back to Menu
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div class="flex flex-wrap justify-between items-start gap-3 mb-8">
+            <h1 class="text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em] w-full">Complete Your Order
+            </h1>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
+            <!-- Payment Details Form -->
+            <div class="lg:col-span-2 space-y-6">
+                <div
+                    class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-sm border border-border-light dark:border-border-dark">
+                    <h2 class="text-xl font-bold mb-6">Payment Details</h2>
+                    <div class="space-y-4">
+                        <!-- Cardholder Name -->
+                        <div>
+                            <label class="flex flex-col">
+                                <p class="text-base font-medium leading-normal pb-2">Cardholder Name</p>
+                                <input [(ngModel)]="cardholderName"
+                                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark focus:border-primary dark:focus:border-primary h-12 placeholder:text-placeholder-light dark:placeholder:text-placeholder-dark p-[12px] text-base font-normal leading-normal"
+                                    placeholder="Enter name on card" />
+                            </label>
+                        </div>
+
+                        <!-- Card Number -->
+                        <div>
+                            <label class="flex flex-col">
+                                <p class="text-base font-medium leading-normal pb-2">Card Number</p>
+                                <div class="relative flex w-full flex-1 items-stretch">
+                                    <input [(ngModel)]="cardNumber" (input)="formatCardNumber($event)"
+                                        class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark focus:border-primary dark:focus:border-primary h-12 placeholder:text-placeholder-light dark:placeholder:text-placeholder-dark p-[12px] pr-10 text-base font-normal leading-normal"
+                                        placeholder="0000 0000 0000 0000" />
+                                    <div
+                                        class="absolute inset-y-0 right-0 flex items-center pr-3 text-placeholder-light dark:text-placeholder-dark">
+                                        <span class="material-symbols-outlined text-base">credit_card</span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Expiry Date and CVV -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="flex flex-col">
+                                    <p class="text-base font-medium leading-normal pb-2">Expiry Date</p>
+                                    <input [(ngModel)]="expiryDate" (input)="formatExpiryDate($event)"
+                                        class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark focus:border-primary dark:focus:border-primary h-12 placeholder:text-placeholder-light dark:placeholder:text-placeholder-dark p-[12px] text-base font-normal leading-normal"
+                                        placeholder="MM / YY" />
+                                </label>
+                            </div>
+                            <div>
+                                <label class="flex flex-col">
+                                    <p class="text-base font-medium leading-normal pb-2">CVV</p>
+                                    <input [(ngModel)]="cvv" (input)="formatCVV($event)"
+                                        class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark focus:border-primary dark:focus:border-primary h-12 placeholder:text-placeholder-light dark:placeholder:text-placeholder-dark p-[12px] text-base font-normal leading-normal"
+                                        placeholder="123" />
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Remember Me Checkbox -->
+                        <div class="flex items-center pt-2">
+                            <input [(ngModel)]="rememberMe"
+                                class="h-4 w-4 rounded border-border-light dark:border-border-dark text-primary focus:ring-primary bg-card-light dark:bg-card-dark"
+                                id="remember-me" name="remember-me" type="checkbox" />
+                            <label class="ml-3 block text-sm font-medium text-text-light dark:text-text-dark"
+                                for="remember-me">Remember me</label>
+                        </div>
+
+                        <!-- Payment Method Icons -->
+                        <div class="flex items-center gap-2 pt-4">
+                            <img class="h-6" alt="Visa logo"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlSFJIGt9oxa9l7O-6Z_nhB8NyBx_kqFmRyVBZqgWbWO8b53_JVFOuYWYkbDwkW9RFLlq6Cpb7TRv2zf6o4gtIEVEoP3v3gIF6AvyfY8R1rjMuwnkBLmv_Ear9Gn42NVwa1kNssP5H1OzcSK9vgyinFZaqa_oebOjDVsmom4IhYaQWdoWzCFCqqinbgNnLVnT3XfQRHnqwfn0opk2DGwa0MlrUVxRg-eYPaLTZePhoCfn1vm9en6WpO6EVdjXK9xPL3fEOQ-PL6Hjc" />
+                            <img class="h-6" alt="Mastercard logo"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiJKJDW0rB5v012-AJ-Cu6VHVBQ9CgiClmAki9ZTVIW1n_Kh3lUEotYB3pfqcd-5d_abEVIIu8CpSa3moAFxsr8MeofvV8a42XtIE6OiYyQ2xHl-bc5xxjh155L7BzFEtwU3p5K5O8vAOMeta5am9wYVweEbg1HQVxzTZ4gdDx90UTmAiX7us13vTGhf9_DjnU5Lt7Ixyj_ehbIP97uTI33aULAXEQmGDtmgmtAniuZacAOnyu3ymheusFpcHVssZSFVqFQp3i0wSj" />
+                            <img class="h-6" alt="American Express logo"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_Zea27rdzSNSrNuTI8TM0-Kb3NVSLSDrvHJCYBf3ZaWdusTQmsV7prPUUxh6F4GjiTyr0KiVSbdKLlNWsB1xfFDlz-PI8ZUWKT8xLe0eGhneJpX4SzXCeOY53g87KuZdGlzTrAaHSUeaQbSK9kFM9_kRy1WkrMdzjIm86hAYrnHN2HsSF2y_P3VZFsIr_Egw8xdy7EyCILVOMwkciXlH2GG3UvDOOZgakoh7h5-ACxaaUj0efZx6TkCSEK1RBs7Iz6Bgd5fxSGQ8h" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Summary Sidebar -->
+            <div class="lg:col-span-1 w-full lg:sticky lg:top-12">
+                <div
+                    class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-sm border border-border-light dark:border-border-dark space-y-6">
+                    <div>
+                        <h2 class="text-xl font-bold mb-4">Order Summary</h2>
+
+                        <!-- Cart Items -->
+                        <ul
+                            class="space-y-3 max-h-64 overflow-y-auto pr-2 mb-4 pb-4 border-b border-border-light dark:border-border-dark">
+                            <li *ngFor="let item of cartItems" class="flex justify-between items-start gap-2 text-sm">
+                                <div class="flex-1">
+                                    <p class="font-medium">{{ item.title }}</p>
+                                    <p class="text-xs text-placeholder-light dark:text-placeholder-dark">Qty: {{
+                                        item.quantity || 1 }}</p>
+                                </div>
+                                <p class="font-medium shrink-0">${{ (item.price * (item.quantity || 1)).toFixed(2) }}
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Totals -->
+                    <div class="space-y-2 pb-4 border-b border-border-light dark:border-border-dark">
+                        <div class="flex justify-between text-sm">
+                            <p class="text-placeholder-light dark:text-placeholder-dark">Subtotal</p>
+                            <p class="font-medium">${{ subtotal.toFixed(2) }}</p>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <p class="text-placeholder-light dark:text-placeholder-dark">Tax (10%)</p>
+                            <p class="font-medium">${{ tax.toFixed(2) }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Total -->
+                    <div class="flex justify-between items-center pb-6">
+                        <p class="font-bold">Total</p>
+                        <p class="text-2xl font-black">${{ total.toFixed(2) }}</p>
+                    </div>
+
+                    <!-- Pay Button -->
+                    <button (click)="payNow()" [disabled]="isProcessing"
+                        class="w-full bg-primary text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background-dark transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">
+                        {{ isProcessing ? 'Processing...' : 'Pay Now' }}
+                    </button>
+
+                    <!-- Security Message -->
+                    <div
+                        class="flex items-center justify-center text-xs text-placeholder-light dark:text-placeholder-dark">
+                        <span class="material-symbols-outlined text-base mr-1">lock</span>
+                        <span>Your payment is secure</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 px-4 mt-8 pb-6 border-t border-border-light dark:border-border-dark">
+        <div class="text-sm text-placeholder-light dark:text-placeholder-dark space-x-4">
+            <a class="hover:text-primary dark:hover:text-primary transition-colors" href="#">Privacy Policy</a>
+            <span>•</span>
+            <a class="hover:text-primary dark:hover:text-primary transition-colors" href="#">Terms of Service</a>
+        </div>
+    </footer>
+</div>

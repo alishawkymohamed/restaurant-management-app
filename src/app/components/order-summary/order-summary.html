@@ -1,0 +1,109 @@
+<div class="w-full">
+    <!-- Header -->
+    <header
+        class="flex items-center justify-between whitespace-nowrap border-b border-solid border-border-light dark:border-border-dark px-4 sm:px-6 md:px-10 lg:px-20 py-4">
+        <div class="flex items-center gap-3 sm:gap-4">
+            <div class="text-primary size-6">
+                <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z" fill="currentColor"></path>
+                </svg>
+            </div>
+            <h2 class="text-lg sm:text-xl font-bold leading-tight tracking-tight">The Golden Spoon</h2>
+        </div>
+        <div class="flex flex-1 justify-end">
+            <button (click)="backToMenu()"
+                class="text-sm font-medium leading-normal hover:text-primary transition-colors cursor-pointer bg-none border-none p-0">
+                Back to Menu
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div class="flex flex-wrap justify-between items-start gap-3 mb-8">
+            <h1 class="text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em] w-full">Your Order</h1>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
+            <!-- Cart Items -->
+            <div class="lg:col-span-2 space-y-4">
+                <div *ngFor="let item of cartItems"
+                    class="flex flex-col sm:flex-row gap-4 bg-card-light dark:bg-card-dark p-4 justify-between rounded-lg shadow-sm border border-border-light dark:border-border-dark">
+                    <div class="flex items-start gap-4 flex-grow">
+                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-md size-[70px] shrink-0"
+                            [ngStyle]="{'background-image': 'url(' + item.image + ')'}" [attr.data-alt]="item.title">
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center">
+                            <p class="text-base font-medium leading-normal text-text-light dark:text-text-dark">{{
+                                item.title }}</p>
+                            <p class="text-[#8a7560] dark:text-gray-400 text-sm font-normal leading-normal">${{
+                                item.price.toFixed(2) }}</p>
+                            <p class="text-[#8a7560] dark:text-gray-400 text-sm font-normal leading-normal">{{
+                                item.description }}</p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="flex justify-between items-center sm:flex-col sm:justify-between sm:items-end shrink-0 sm:ml-4 mt-2 sm:mt-0">
+                        <div class="flex items-center gap-2">
+                            <button (click)="updateQuantity(item, (item.quantity || 1) - 1)"
+                                class="flex h-7 w-7 items-center justify-center rounded-full bg-border-light dark:bg-border-dark cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors border-none bg-opacity-50">-</button>
+                            <input [value]="item.quantity" type="number" disabled="true"
+                                class="w-8 p-0 text-center bg-transparent focus:outline-0 focus:ring-0 focus:border-none border-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none text-base font-medium" />
+                            <button (click)="updateQuantity(item, (item.quantity || 1) + 1)"
+                                class="flex h-7 w-7 items-center justify-center rounded-full bg-border-light dark:bg-border-dark cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors border-none bg-opacity-50">+</button>
+                        </div>
+                        <button (click)="removeItem(item)"
+                            class="sm:mt-2 text-[#8a7560] dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors bg-none border-none cursor-pointer p-0">
+                            <span class="material-symbols-outlined text-xl">delete</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Summary Sidebar -->
+            <div class="lg:col-span-1 w-full lg:sticky lg:top-12">
+                <div class="space-y-6">
+                    <!-- Table Number -->
+                    <div
+                        class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-sm border border-border-light dark:border-border-dark">
+                        <label class="block text-base font-semibold mb-2" for="table-number">What's your table
+                            number?</label>
+                        <div class="relative">
+                            <span
+                                class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">table_restaurant</span>
+                            <input [(ngModel)]="tableNumber"
+                                class="w-full pl-10 pr-4 py-2.5 rounded-md border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary focus:border-primary transition-shadow"
+                                id="table-number" placeholder="e.g. 12" type="text" />
+                        </div>
+                    </div>
+
+                    <!-- Order Total -->
+                    <div
+                        class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-sm border border-border-light dark:border-border-dark space-y-4">
+                        <h3 class="text-xl font-bold">Order Summary</h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-[#8a7560] dark:text-gray-400">Subtotal</span>
+                                <span class="font-medium">${{ subtotal.toFixed(2) }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-[#8a7560] dark:text-gray-400">Taxes & Fees</span>
+                                <span class="font-medium">${{ taxesAndFees.toFixed(2) }}</span>
+                            </div>
+                        </div>
+                        <div class="border-t border-dashed border-border-light dark:border-border-dark my-4"></div>
+                        <div class="flex justify-between items-center text-lg font-bold">
+                            <span>Total</span>
+                            <span>${{ total.toFixed(2) }}</span>
+                        </div>
+                        <button (click)="proceedToCheckout()"
+                            class="w-full bg-primary text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background-dark transition-all transform hover:scale-[1.02] mt-4">
+                            Proceed to Checkout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

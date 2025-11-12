@@ -1,0 +1,31 @@
+:host {
+    display: block;
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--bg-light, #fdfbf6);
+}
+
+:host.dark {
+    background-color: var(--bg-dark, #1a1a1a);
+}
+
+button {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+input[type="text"],
+input[type="number"] {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Quantity input styling */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}

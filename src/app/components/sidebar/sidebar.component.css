@@ -1,0 +1,42 @@
+:host {
+    display: block;
+}
+
+/* Active sidebar link styling */
+:host ::ng-deep a.active-link {
+    color: #f27f0d;
+}
+
+:host ::ng-deep a.active-link span {
+    color: #f27f0d;
+}
+
+/* Ensure button styling is not affected by component encapsulation */
+:host ::ng-deep button.order-summary-btn {
+    display: flex;
+    width: 100%;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    height: 3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    background-color: #f27f0d;
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0.05em;
+    box-shadow: 0 10px 15px -3px rgba(242, 127, 13, 0.3);
+    transition: all 200ms;
+}
+
+:host ::ng-deep button.order-summary-btn:hover {
+    background-color: rgba(242, 127, 13, 0.9);
+}
+
+:host ::ng-deep button.order-summary-btn span {
+    margin-right: 0.5rem;
+}

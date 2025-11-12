@@ -1,0 +1,117 @@
+<div *ngIf="isOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-8">
+    <!-- Overlay backdrop -->
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-md" (click)="closeDetails()"></div>
+
+    <!-- Modal dialog -->
+    <div
+        class="relative m-auto flex w-full max-w-4xl flex-col overflow-hidden rounded-xl bg-surface-light shadow-2xl dark:bg-surface-dark">
+        <!-- Close button -->
+        <button (click)="closeDetails()"
+            class="absolute right-4 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/20 text-white transition-colors hover:bg-black/40">
+            <span class="material-symbols-outlined !text-xl">close</span>
+        </button>
+
+        <!-- Grid layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2">
+            <!-- Image section -->
+            <div class="aspect-video min-h-[250px] md:aspect-auto">
+                <div class="h-full w-full bg-cover bg-center bg-no-repeat"
+                    [ngStyle]="{'background-image': 'url(' + (item?.image || '') + ')'}" [attr.data-alt]="item?.alt">
+                </div>
+            </div>
+
+            <!-- Details section -->
+            <div class="flex flex-col p-6 sm:p-8">
+                <!-- Title and Price -->
+                <div class="flex flex-wrap items-start justify-between gap-3">
+                    <div class="flex flex-col gap-1">
+                        <h1
+                            class="text-3xl font-black leading-tight tracking-[-0.033em] text-text-light dark:text-text-dark">
+                            {{ item?.title }}
+                        </h1>
+                        <p class="text-2xl font-normal leading-normal text-text-muted-light dark:text-text-muted-dark">
+                            ${{ item?.price?.toFixed(2) }}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Long description -->
+                <p class="mt-4 text-base font-normal leading-normal text-text-light dark:text-text-dark">
+                    {{ item?.longDescription || item?.description }}
+                </p>
+
+                <!-- Collapsible sections -->
+                <div class="mt-4 flex flex-col">
+                    <!-- Ingredients section -->
+                    <details class="group flex flex-col border-t border-t-border-light py-2 dark:border-t-border-dark">
+                        <summary class="flex cursor-pointer items-center justify-between gap-6 py-2">
+                            <p class="text-sm font-medium leading-normal text-text-light dark:text-text-dark">
+                                Ingredients</p>
+                            <span
+                                class="material-symbols-outlined text-text-light transition-transform group-open:rotate-180 dark:text-text-dark">
+                                expand_more
+                            </span>
+                        </summary>
+                        <p
+                            class="pb-2 text-sm font-normal leading-normal text-text-muted-light dark:text-text-muted-dark">
+                            {{ item?.ingredients }}
+                        </p>
+                    </details>
+
+                    <!-- Allergies section -->
+                    <details class="group flex flex-col border-t border-t-border-light py-2 dark:border-t-border-dark">
+                        <summary class="flex cursor-pointer items-center justify-between gap-6 py-2">
+                            <p class="text-sm font-medium leading-normal text-text-light dark:text-text-dark">Allergies
+                            </p>
+                            <span
+                                class="material-symbols-outlined text-text-light transition-transform group-open:rotate-180 dark:text-text-dark">
+                                expand_more
+                            </span>
+                        </summary>
+                        <p
+                            class="pb-2 text-sm font-normal leading-normal text-text-muted-light dark:text-text-muted-dark">
+                            {{ item?.allergies }}
+                        </p>
+                    </details>
+
+                    <!-- Nutritional Info section -->
+                    <details class="group flex flex-col border-t border-t-border-light py-2 dark:border-t-border-dark">
+                        <summary class="flex cursor-pointer items-center justify-between gap-6 py-2">
+                            <p class="text-sm font-medium leading-normal text-text-light dark:text-text-dark">
+                                Nutritional Info</p>
+                            <span
+                                class="material-symbols-outlined text-text-light transition-transform group-open:rotate-180 dark:text-text-dark">
+                                expand_more
+                            </span>
+                        </summary>
+                        <p
+                            class="pb-2 text-sm font-normal leading-normal text-text-muted-light dark:text-text-muted-dark">
+                            {{ item?.nutritionalInfo }}
+                        </p>
+                    </details>
+                </div>
+
+                <!-- Quantity selector and Add to Order button -->
+                <div class="mt-auto flex flex-col gap-4 pt-6 sm:flex-row">
+                    <div
+                        class="flex items-center justify-between rounded-lg border border-border-light bg-background-light dark:border-border-dark dark:bg-background-dark sm:justify-center">
+                        <button (click)="decreaseQuantity()"
+                            class="flex h-12 w-12 items-center justify-center text-text-muted-light transition-colors hover:text-text-light dark:text-text-muted-dark dark:hover:text-text-dark">
+                            <span class="material-symbols-outlined">remove</span>
+                        </button>
+                        <span class="w-8 text-center text-lg font-bold text-text-light dark:text-text-dark">{{ quantity
+                            }}</span>
+                        <button (click)="increaseQuantity()"
+                            class="flex h-12 w-12 items-center justify-center text-text-muted-light transition-colors hover:text-text-light dark:text-text-muted-dark dark:hover:text-text-dark">
+                            <span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                    <button (click)="addToOrder()"
+                        class="flex h-12 flex-1 items-center justify-center rounded-lg bg-primary px-6 text-base font-bold text-white shadow-sm transition-opacity hover:opacity-90">
+                        Add to Order
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

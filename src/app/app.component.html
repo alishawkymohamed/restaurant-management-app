@@ -1,0 +1,14 @@
+<div *ngIf="!isOrderSummaryPage" class="flex flex-col lg:flex-row min-h-screen">
+    <app-sidebar></app-sidebar>
+    <main class="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+        <div class="max-w-7xl mx-auto">
+            <app-header></app-header>
+            <router-outlet></router-outlet>
+        </div>
+    </main>
+</div>
+<div *ngIf="isOrderSummaryPage" class="w-full min-h-screen">
+    <router-outlet></router-outlet>
+</div>
+<app-meal-details></app-meal-details>
+<app-alert-modal></app-alert-modal>
